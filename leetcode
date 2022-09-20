@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        unordered_map<int,vector<string>> mp;
+        mp[2] = {"a","b","c"};
+        mp[3] = {"d","e","f"};
+        mp[4] = {"g","h","i"};
+        mp[5] = {"j","k","l"};
+        mp[6] = {"m","n","o"};
+        mp[7] = {"p","q","r","s"};
+        mp[8] = {"t","u","v"};
+        mp[9] = {"w","x","y","z"};
+        
+        vector<string> res;
+        int n = digits.size();
+        if(n == 0) return res;
+        string s = "";
+        dps(digits, res, s, mp);
+        return res;    
+    }
+    
+    void dps(string digits,vector<string>& res,string s,unordered_map<int,vector<string>>& mp){
+        if(digits.size() == 0){
+            res.push_back(s);
+            return;
+        } 
+        char c = digits[0];     
+        auto v = mp[c-'0'];
+        for(auto& letter:v){
+            s += letter;
+            dps(digits.substr(1), res, s, mp);
+            s.pop_back();
+        }        
+    }   
+};# crispy-octo-succotash
